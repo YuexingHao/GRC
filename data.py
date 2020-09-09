@@ -30,20 +30,22 @@ rounds = data["Round"].to_numpy()
 unique_rounds = np.unique(rounds)
 Deadwood = data["Deadwood"].to_numpy()
 
-plt.scatter(rounds,Deadwood)
+plt.scatter(rounds,Deadwood, color="BLUE")
 plt.ylabel("Deadwood")
 plt.xlabel("Round #")
 plt.title("Deadwood per Round")
 
 avg = data.groupby("Round")["Deadwood"].mean()
 averages = data.groupby("Round")["Deadwood"].mean().to_numpy()
-plt.scatter(unique_rounds,averages)
+
 
 slope, intercept, rvalue, pvalue, stderr = stats.linregress(unique_rounds,averages)
 plt.plot(unique_rounds,slope*unique_rounds + intercept, color="RED", linewidth=5, linestyle='--')
 popt, pcov = curve_fit(exponential,unique_rounds,averages)
 plt.plot(unique_rounds,exponential(unique_rounds,*popt), color="PURPLE", linewidth=5)
-plt.plot(unique_rounds,10*np.ones(len(unique_rounds)),color="YELLOW", linewidth=3, linestyle=':')
+plt.plot(unique_rounds,10*np.ones(len(unique_rounds)),color="BLACK", linewidth=5, linestyle=':')
+
+plt.scatter(unique_rounds,averages,color="ORANGE")
 plt.show()
 
 print("Num Sub-games played: %d" %(np.count_nonzero(rounds == 1)))
