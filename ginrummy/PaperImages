@@ -1,0 +1,16 @@
+library(ggplot2)
+
+ggplot(GRCWinRATE4, aes(x = Threshold, y = AdvancedWinRate)) + 
+  geom_point()+ geom_line() + geom_smooth(method = "loess", se = TRUE)
+
+geom_line(data = GRCGame2, aes(x = Threshold8, y = Games), color = "blue") +  geom_point() +
+  geom_line(data = GRCGame2, aes(x = Threshold9, y = Games), color = "red") + geom_point() +
+  xlab('Threshold') +
+  ylab('Number of Games')
+
+ggplot(GRCWinRATE4, aes(x = Threshold, y = AdvancedWinRate)) +
+  geom_point()+ geom_line() + geom_smooth(method = "loess", se = TRUE)+
+  geom_smooth(data = GRCWinRATE4, aes(x = Threshold, y = DynamicWinRate), color = "red")+
+  geom_point(data = GRCWinRATE4, aes(x = Threshold, y = DynamicWinRate), color = "red") +
+  geom_line(data = GRCWinRATE4, aes(x = Threshold, y = DynamicWinRate)) + xlab('Threshold') +
+  ylab('WinRate')
